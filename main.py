@@ -40,7 +40,7 @@ if st.button("查詢"):
             score_only = student_row.drop(columns=['學號', '姓名','期中考'], errors='ignore')  #只做小考平均
             score_only = score_only.apply(pd.to_numeric, errors='coerce')
             avg_score = score_only.mean(axis=1).round(2)
-            cnt_score=len(score_only)
+            cnt_score=len(score_only.columns)
             
             # 加上平均分數欄（放在第 2 個欄位，也就是 學號 和 姓名 之後）
             student_row = student_row.copy()
