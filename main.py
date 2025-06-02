@@ -28,13 +28,13 @@ if st.button("查詢"):
         
         # 檢查必要欄位
         if '學號' not in score_df.columns:
-            st.error("錯誤：找不到欄位『學號』欄位")
+            st.error("錯誤：找不到『學號』欄位 !")
             st.stop()
 
         # 過濾該學號的資料
         student_row = score_df[score_df['學號'].astype(str).str.upper() == student_id.strip().upper()]
         if student_row.empty:
-            st.warning("查無此學號成績")
+            st.warning("查無此學號成績!")
         else:
             # 計算平均成績（排除學號、姓名等文字欄位）
             score_only = student_row.drop(columns=['學號', '姓名','期中考'], errors='ignore')  #只做小考平均
