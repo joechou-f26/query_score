@@ -5,7 +5,17 @@ import pandas as pd
 COURSE_FILE = "course_list.xlsx"
 SCORE_FILE = "score.xlsx"
 
-st.title("📘 學生成績查詢")
+# ====== 密碼驗證 ======
+st.title("🔐 學生成績查詢")
+
+correct_password = "1132"  #  可自訂密碼
+password = st.text_input("請輸入密碼：", type="password")
+
+if password != correct_password:
+    st.warning("請輸入正確密碼才能進行查詢。")
+    st.stop()
+
+# ====== 主功能開始 ======
 
 # 讀取課程清單
 try:
