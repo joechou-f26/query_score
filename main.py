@@ -24,7 +24,7 @@ if st.button("查詢"):
     try:
         # 讀取該科目對應的工作表
         score_df = pd.read_excel(SCORE_FILE, sheet_name=selected_course)
-        st.dataframe(score_df)
+        #st.dataframe(score_df)
         
         # 檢查必要欄位
         if 'id' not in score_df.columns:
@@ -42,9 +42,9 @@ if st.button("查詢"):
             score_only = score_only.apply(pd.to_numeric, errors='coerce')
             avg_score = score_only.mean(axis=1).round(2)
 
-            # 加上平均分數欄
+            # 加上平均分數欄（放在第 2 個欄位，也就是 name 和 id 之後）
             student_row = student_row.copy()
-            student_row['小考平均分數'] = avg_score
+            student_row.insert(2, '小考平均分數', avg_score)  # index=2 表示放在第 3 欄
 
             # 顯示成績
             st.subheader("🔎 查詢結果")
