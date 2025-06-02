@@ -59,7 +59,6 @@ if st.button("查詢"):
             
             # 顯示成績
             st.subheader("🔎 查詢結果")
-            #不顯示 index, 自動填滿頁面寬度（適合欄位多的成績表）
             st.dataframe(student_row.reset_index(drop=True), use_container_width=True)
     except Exception as e:
         st.error(f"讀取成績資料時發生錯誤：{e}")
