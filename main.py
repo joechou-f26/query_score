@@ -32,8 +32,7 @@ if st.button("查詢"):
             st.stop()
 
         # 過濾該學號的資料
-        #student_row = score_df[score_df['id'].astype(str) == student_id.strip()]
-        student_row = score_df[score_df['id'].astype(str).str.upper() == student_id.strip().upper()]
+        student_row = score_df[score_df['學號'].astype(str).str.upper() == student_id.strip().upper()]
         if student_row.empty:
             st.warning("查無此學號成績")
         else:
