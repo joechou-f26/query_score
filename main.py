@@ -24,7 +24,8 @@ if st.button("查詢"):
     try:
         # 讀取該科目對應的工作表
         score_df = pd.read_excel(SCORE_FILE, sheet_name=selected_course)
-
+        st.dataframe(score_df)
+        
         # 檢查必要欄位
         if 'id' not in score_df.columns:
             st.error("錯誤：找不到欄位『學號』欄位")
