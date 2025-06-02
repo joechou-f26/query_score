@@ -1,23 +1,20 @@
 import streamlit as st
 import pandas as pd
 
-# 載入資料檔案
+# ====== 設定檔案路徑 ======
 COURSE_FILE = "course_list.xlsx"
 SCORE_FILE = "score.xlsx"
 
 # ====== 密碼驗證 ======
-st.title("🔐 學生成績查詢")
-
-correct_password = "1132"  #  可自訂密碼
+st.title("🔐 學生成績查詢系統")
+correct_password = "1132"
 password = st.text_input("請輸入密碼：", type="password")
 
 if password != correct_password:
     st.warning("請輸入正確密碼才能進行查詢。")
     st.stop()
 
-# ====== 主功能開始 ======
-
-# 讀取課程清單
+# ====== 讀取課程清單 ======
 try:
     course_df = pd.read_excel(COURSE_FILE)
     course_list = course_df.iloc[:, 0].dropna().tolist()
@@ -26,23 +23,23 @@ except Exception as e:
     st.error(f"無法讀取 course_list.xlsx，錯誤訊息：{e}")
     st.stop()
 
-# 輸入學號
+# ====== 快取單一工作表的函數 ======
+@st.cache_data
+def load_score_sheet(sheet_name):
+    return pd.read_excel(SCORE_FILE, sheet_name=sheet_name)
+
+# ====== 使用者輸入學號 ======
 student_id = st.text_input("請輸入學號：")
 
-# 查詢按鈕
 if st.button("查詢"):
     try:
-        # 讀取該科目對應的工作表
-        score_df = pd.read_excel(SCORE_FILE, sheet_name=selected_course)
-        #st.dataframe(score_df)
-        
-        # 檢查必要欄位
-        if '學號' not in score_df.columns:
-            st.error("錯誤：找不到『學號』欄位 !")
+        score_df = load_score_sheet(selected_course)
+
+        if "學號" not in score_df.columns:
+            st.error("錯誤：找不到欄位『學號』")
             st.stop()
 
-        # 過濾該學號的資料
-        student_row = score_df[score_df['學號'].astype(str).str.upper() == student_id.strip().upper()]
+        student_row = score_df[score_df["學號"].astype(str).str.upper() == student_id.strip().upper()]
         if student_row.empty:
             st.warning("查無此學號成績!")
         else:
@@ -60,6 +57,6 @@ if st.button("查詢"):
             # 顯示成績
             st.subheader("🔎 查詢結果")
             st.dataframe(student_row, hide_index=True)
-    except Exception as e:
-        st.error(f"讀取成績資料時發生錯誤：{e}")
 
+    except Exception as e:
+        st.error(f"查詢過程中發生錯誤：{e}")
