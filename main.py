@@ -5,7 +5,7 @@ import pandas as pd
 COURSE_FILE = "course_list.xlsx"
 SCORE_FILE = "score.xlsx"
 
-st.title("📘 學生成績查詢系統")
+st.title("📘 學生成績查詢")
 
 # 讀取課程清單
 try:
