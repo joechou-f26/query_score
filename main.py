@@ -59,7 +59,7 @@ if st.button("查詢"):
             
             # 顯示成績
             st.subheader("🔎 查詢結果")
-            st.dataframe(student_row, use_container_width=True)
+            st.dataframe(student_row, hide_index=True)
     except Exception as e:
         st.error(f"讀取成績資料時發生錯誤：{e}")
 
