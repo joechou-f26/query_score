@@ -6,7 +6,7 @@ COURSE_FILE = "course_list.xlsx"
 SCORE_FILE = "score.xlsx"
 
 # ====== 密碼驗證 ======
-st.title("🔐 學生成績查詢系統")
+st.title("🔐 學生成績查詢")
 correct_password = "1132"
 password = st.text_input("請輸入密碼：", type="password")
 
