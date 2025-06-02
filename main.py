@@ -27,7 +27,7 @@ if st.button("查詢"):
         #st.dataframe(score_df)
         
         # 檢查必要欄位
-        if 'id' not in score_df.columns:
+        if '學號' not in score_df.columns:
             st.error("錯誤：找不到欄位『學號』欄位")
             st.stop()
 
@@ -38,13 +38,13 @@ if st.button("查詢"):
             st.warning("查無此學號成績")
         else:
             # 計算平均成績（排除學號、姓名等文字欄位）
-            score_only = student_row.drop(columns=['id', 'name','MidTerm'], errors='ignore')  #只做小考平均
+            score_only = student_row.drop(columns=['學號', '姓名','期中考'], errors='ignore')  #只做小考平均
             score_only = score_only.apply(pd.to_numeric, errors='coerce')
             avg_score = score_only.mean(axis=1).round(2)
 
-            # 加上平均分數欄（放在第 2 個欄位，也就是 name 和 id 之後）
+            # 加上平均分數欄（放在第 2 個欄位，也就是 學號 和 姓名 之後）
             student_row = student_row.copy()
-            student_row.insert(2, '小考平均分數', avg_score)  # index=2 表示放在第 3 欄
+            student_row.insert(2, '小考平均', avg_score)  # index=2 表示放在第 3 欄
 
             # 顯示成績
             st.subheader("🔎 查詢結果")
