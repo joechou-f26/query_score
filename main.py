@@ -44,15 +44,14 @@ if st.button("查詢"):
             st.warning("查無此學號成績!")
         else:
             # 計算平均成績（排除學號、姓名等文字欄位）
-            score_only = student_row.drop(columns=['學號', '姓名','期中考'], errors='ignore')  #只做小考平均
-            score_only = score_only.apply(pd.to_numeric, errors='coerce')
-            avg_score = score_only.mean(axis=1).round(2)
-            cnt_score=len(score_only.columns)
-            
+            #score_only = student_row.drop(columns=['學號', '姓名','期中考'], errors='ignore')  #只做小考平均
+            #score_only = score_only.apply(pd.to_numeric, errors='coerce')
+            #avg_score = score_only.mean(axis=1).round(2)
+            #cnt_score=len(score_only.columns)
             # 加上平均分數欄（放在第 2 個欄位，也就是 學號 和 姓名 之後）
-            student_row = student_row.copy()
-            student_row.insert(2, '小考平均', avg_score)  # index=2 表示放在第 3 欄
-            student_row.insert(3, '小考次數', cnt_score)  
+            #student_row = student_row.copy()
+            #student_row.insert(2, '小考平均', avg_score)  # index=2 表示放在第 3 欄
+            #student_row.insert(3, '小考次數', cnt_score)  
             
             # 顯示成績
             st.subheader("🔎 查詢結果")
